@@ -3,7 +3,9 @@ package com.example.weatherSearch.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.weatherSearch.converter.ConvertWeatherData;
 import com.example.weatherSearch.dao.IWeatherDao;
+import com.example.weatherSearch.entity.domain.WeatherDomain;
 import com.example.weatherSearch.entity.model.CityModel;
 import com.example.weatherSearch.entity.model.WeatherModel;
 
@@ -21,7 +23,8 @@ public class WeatherService implements IWeatherService{
 	 * @see com.example.weatherSearch.service.IWeatherService#getWeatherByCity(java.lang.String)
 	 */
 	public WeatherModel getWeatherByCity(String location) {		
-		WeatherModel weatherModel = new WeatherModel();
+		WeatherDomain weatherDomain = this.weatherDao.getWeatherByCity(location);
+		WeatherModel weatherModel = ConvertWeatherData.convert(weatherDomain);
 		return weatherModel;
 	}
 	

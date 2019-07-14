@@ -1,9 +1,13 @@
 package com.example.weatherSearch.dao;
 
+import java.net.URLEncoder;
+
 import org.springframework.stereotype.Repository;
 
 import com.example.weatherSearch.entity.domain.WeatherDomain;
 import com.example.weatherSearch.entity.model.CityModel;
+import com.example.weatherSearch.utility.WeatherUtility;
+import com.google.gson.Gson;
 
 /**
  * The Class WeatherDao.
@@ -19,6 +23,15 @@ public class WeatherDao implements IWeatherDao{
 	 */
 	public WeatherDomain getWeatherByCity(String location) {
 		WeatherDomain weatherDomain = null;
+		try {
+			location = URLEncoder.encode(location, "utf-8");
+			String weatherRs = WeatherUtility.getWeatherResource(url_now.replace("LOCATION", location));
+			
+			Gson gson = new Gson();
+			weatherDomain = gson.fromJson(weatherRs, WeatherDomain.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return weatherDomain;
 	}
 	
