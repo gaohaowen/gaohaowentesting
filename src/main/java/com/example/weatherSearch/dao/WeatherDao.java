@@ -2,6 +2,7 @@ package com.example.weatherSearch.dao;
 
 import java.net.URLEncoder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.example.weatherSearch.entity.domain.WeatherDomain;
@@ -14,6 +15,10 @@ import com.google.gson.Gson;
  */
 @Repository(value = "weatherDao")
 public class WeatherDao implements IWeatherDao{
+	
+	/** The city model. */
+	@Autowired
+	private CityModel cityModel;
 	
 	/** The url now. */
 	private String url_now = "https://api.seniverse.com/v3/weather/now.json?key=SpuAxDsc1_gNdlv27&location=LOCATION";
@@ -40,7 +45,6 @@ public class WeatherDao implements IWeatherDao{
 	 */
 	public CityModel getCityList() {
 
-		CityModel cityModel = new CityModel();
 		return cityModel;
 	}
 }
