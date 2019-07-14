@@ -18,7 +18,7 @@ import com.example.weatherSearch.utility.ResponseDataUtil;
  * The Class WeatherController.
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600)
 @RequestMapping("/api")
 public class WeatherController {
 
@@ -54,12 +54,13 @@ public class WeatherController {
 	}
 	
 	/**
-	 * Default page.
+	 * Index.
 	 *
 	 * @return the string
 	 */
-	@GetMapping("/")	
-	public String defaultPage() throws Exception{
-		return "Hello World";
-	}
+	@RequestMapping("/")
+    public String index()
+    {
+        return "forward:/index.html";
+    }
 }
