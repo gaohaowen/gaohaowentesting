@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.weatherSearch.entity.model.CityModel;
+import com.example.weatherSearch.entity.model.ResponseData;
 import com.example.weatherSearch.entity.model.WeatherModel;
 import com.example.weatherSearch.service.IWeatherService;
+import com.example.weatherSearch.utility.ResponseDataUtil;
 
 /**
  * The Class WeatherController.
@@ -32,8 +34,10 @@ public class WeatherController {
 	 */
 	@GetMapping("/weather/{location}")
 	@ResponseBody
-	public WeatherModel getWeatherByCity(@PathVariable("location") String location) {
-		return this.weatherService.getWeatherByCity(location);
+	@SuppressWarnings({"rawtypes" })
+	public ResponseData getWeatherByCity(@PathVariable("location") String location) throws Exception{
+		final WeatherModel weatherModel = this.weatherService.getWeatherByCity(location);
+		return ResponseDataUtil.buildSuccess(weatherModel);
 	}
 
 	
@@ -42,9 +46,11 @@ public class WeatherController {
 	 *
 	 * @return the cities
 	 */
-	@GetMapping("/cities")	
-	public CityModel getCities() {
-		return this.weatherService.getCityList();
+	@GetMapping("/cities")
+	@SuppressWarnings({"rawtypes" })
+	public ResponseData getCities() throws Exception{
+		final CityModel cityModel = this.weatherService.getCityList();
+		return ResponseDataUtil.buildSuccess(cityModel);
 	}
 	
 	/**
@@ -53,7 +59,7 @@ public class WeatherController {
 	 * @return the string
 	 */
 	@GetMapping("/")	
-	public String defaultPage() {
+	public String defaultPage() throws Exception{
 		return "Hello World";
 	}
 }

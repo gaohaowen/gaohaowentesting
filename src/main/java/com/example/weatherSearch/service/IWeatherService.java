@@ -17,13 +17,13 @@ public interface IWeatherService {
 	 * @param location the location
 	 * @return the weather by city
 	 */
-	public WeatherModel getWeatherByCity(String location); 
+	public WeatherModel getWeatherByCity(String location) throws Exception; 
 	
 	/**
 	 * Gets the city list.
 	 *
 	 * @return the city list
 	 */
-	public CityModel getCityList();
+	public CityModel getCityList() throws Exception;
 }
 
