@@ -13,6 +13,6 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - target/weatherSearch-0.0.1-SNAPSHOT.jar
+    - target/weatherSearch-0.0.1.jar
     - appspec.yml
     - 'scripts/**/*'
