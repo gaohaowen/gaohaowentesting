@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - mvn test
+  build:
+    commands:
+      - echo Build of weather started on `date`
+      - mvn clean package
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - target/weatherSearch-0.0.1-SNAPSHOT.jar
+    - appspec.yml
+    - 'scripts/**/*'
