@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: ./target/weatherSearch-0.0.1-SNAPSHOT.jar
-    destination: /home/ec2-user/weather
+    destination: /home/ec2-user/SampleAPIApp
 hooks:
   BeforeInstall:
     - location: scripts/install_dependencies

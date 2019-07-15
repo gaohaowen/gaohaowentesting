@@ -6,7 +6,7 @@ phases:
       - mvn test
   build:
     commands:
-      - echo Build of weather started on `date`
+      - echo Build of SampleAPIApp started on `date`
       - mvn clean package
   post_build:
     commands:
