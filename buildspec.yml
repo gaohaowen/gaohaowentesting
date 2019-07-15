@@ -3,7 +3,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - mvn test
+      - mvn --version
   build:
     commands:
       - echo Build of SampleAPIApp started on `date`
