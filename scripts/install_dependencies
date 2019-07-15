@@ -3,3 +3,4 @@
 cd /home/ec2-user/
 mkdir -p SampleAPIApp
 cd SampleAPIApp
+
