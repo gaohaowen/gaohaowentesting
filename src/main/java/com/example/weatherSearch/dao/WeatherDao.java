@@ -1,8 +1,10 @@
 package com.example.weatherSearch.dao;
 
 import java.net.URLEncoder;
+import java.text.MessageFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.example.weatherSearch.entity.domain.WeatherDomain;
@@ -24,6 +26,14 @@ public class WeatherDao implements IWeatherDao{
 	
 	/** The url now. */
 	private String url_now = "https://api.seniverse.com/v3/weather/now.json?key=SpuAxDsc1_gNdlv27&location=LOCATION";
+	
+	private final static String WEATHER_SERVICE_SUFFIX = "/v3/weather/now.json?key=";
+	
+	@Value("${weather.service}")
+	private String weatherService;
+	
+	@Value("${private.key.path}")
+	private String privateKeyPath;
 
 	/* (non-Javadoc)
 	 * @see com.example.weatherSearch.dao.IWeatherDao#getWeatherByCity(java.lang.String)
@@ -32,7 +42,10 @@ public class WeatherDao implements IWeatherDao{
 		WeatherDomain weatherDomain = null;
 		try {
 			location = URLEncoder.encode(location, "utf-8");
-			String weatherRs = WeatherUtility.getWeatherResource(url_now.replace("LOCATION", location));
+			
+			String privateKey = WeatherUtility.getPrivateKey(privateKeyPath);
+			weatherService = MessageFormat.format(weatherService, privateKey, location);
+			String weatherRs = WeatherUtility.getWeatherResource(weatherService);
 			
 			Gson gson = new Gson();
 			weatherDomain = gson.fromJson(weatherRs, WeatherDomain.class);
