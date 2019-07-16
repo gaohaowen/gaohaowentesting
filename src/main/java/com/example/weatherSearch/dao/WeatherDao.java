@@ -44,8 +44,8 @@ public class WeatherDao implements IWeatherDao{
 			location = URLEncoder.encode(location, "utf-8");
 			
 			String privateKey = WeatherUtility.getPrivateKey(privateKeyPath);
-			weatherService = MessageFormat.format(weatherService, privateKey, location);
-			String weatherRs = WeatherUtility.getWeatherResource(weatherService);
+			String resourcePath = MessageFormat.format(weatherService, privateKey, location);
+			String weatherRs = WeatherUtility.getWeatherResource(resourcePath);
 			
 			Gson gson = new Gson();
 			weatherDomain = gson.fromJson(weatherRs, WeatherDomain.class);
