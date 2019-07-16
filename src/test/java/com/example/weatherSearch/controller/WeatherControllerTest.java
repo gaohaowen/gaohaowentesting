@@ -6,7 +6,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import org.mockito.junit.MockitoJUnitRunner;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,14 +17,10 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.example.weatherSearch.ApplicationConfig;
 import com.example.weatherSearch.entity.model.CityModel;
 import com.example.weatherSearch.entity.model.WeatherModel;
 import com.example.weatherSearch.service.WeatherService;
@@ -32,9 +28,8 @@ import com.example.weatherSearch.service.WeatherService;
 /**
  * The Class WeatherControllerTest.
  */
-@WebAppConfiguration
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ApplicationConfig.class})
+
+@RunWith(MockitoJUnitRunner.class)
 public class WeatherControllerTest {
 	
 	/** The mock mvc. */

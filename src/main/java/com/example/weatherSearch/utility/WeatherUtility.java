@@ -1,6 +1,8 @@
 package com.example.weatherSearch.utility;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -39,4 +41,22 @@ public class WeatherUtility {
 	    }
 		return resultBuffer.toString();
 	}
+	
+	public static String getPrivateKey(String fileName) {
+		StringBuffer sb = new StringBuffer();
+		try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(fileName)),"UTF-8"));
+            String lineTxt = null;
+            while ((lineTxt = br.readLine()) != null) {
+            	sb.append(lineTxt);
+            }
+            br.close();
+        } catch (Exception e) {
+        	e.printStackTrace();
+	        throw new WeatherException(ResultEnums.BUSSINESS_ERROR.getCode(), "call weather resource error");
+        }
+		
+		return sb.toString();
+    }
+
 }
