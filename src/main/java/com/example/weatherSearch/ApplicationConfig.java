@@ -1,8 +1,6 @@
 package com.example.weatherSearch;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -12,7 +10,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
-import com.example.weatherSearch.entity.model.CityModel;
+import com.example.weatherSearch.entity.model.CityPoolModel;
+import com.example.weatherSearch.utility.WeatherUtility;
+import com.google.gson.Gson;
 
 /**
  * The Class ApplicationConfig.
@@ -34,14 +34,13 @@ public class ApplicationConfig {
 	 * @return the city model
 	 */
 	@Bean
-	public CityModel registerCityPool()
+	public CityPoolModel registerCityPool()
 	{
-		final CityModel cityModel = new CityModel();
-		String [] cities = this.cityPool.split(",");
+		String cityList = WeatherUtility.getCityList();
 		
-		List<String> cityList = new ArrayList<String>(Arrays.asList(cities));
-		cityModel.setCities(cityList);
-		
-		return cityModel;
+		Gson gson = new Gson();
+		CityPoolModel cityPoolModel = gson.fromJson(cityList, CityPoolModel.class);
+		Collections.sort(cityPoolModel.getCityModel(), (s1, s2) -> s1.getId().substring(0).compareTo(s2.getId().substring(0)));
+		return cityPoolModel;
 	}
 }

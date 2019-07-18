@@ -1,0 +1,7 @@
+{
+	"cityModel": [
+	 {"id": "Sydney", "name":"悉尼"},
+	 {"id": "Melbourne","name":"墨尔本"},
+	 {"id": "Wollongong","name":"伍伦贡"}
+	]
+}

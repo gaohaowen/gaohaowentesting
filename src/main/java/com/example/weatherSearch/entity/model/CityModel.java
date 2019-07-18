@@ -1,31 +1,50 @@
 package com.example.weatherSearch.entity.model;
 
-import java.util.List;
-
 /**
  * The Class CityModel.
  */
 public class CityModel {
 
-	/** The cities. */
-	private List<String> cities;
+	/** The name. */
+	private String name;
+	
+	/** The id. */
+	private String id;
 
 	/**
-	 * Gets the cities.
+	 * Gets the name.
 	 *
-	 * @return the cities
+	 * @return the name
 	 */
-	public List<String> getCities() {
-		return cities;
+	public String getName() {
+		return name;
 	}
 
 	/**
-	 * Sets the cities.
+	 * Sets the name.
 	 *
-	 * @param cities the new cities
+	 * @param name the new name
 	 */
-	public void setCities(List<String> cities) {
-		this.cities = cities;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 }

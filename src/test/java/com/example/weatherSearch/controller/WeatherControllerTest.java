@@ -6,10 +6,8 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import org.mockito.junit.MockitoJUnitRunner;
+
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,11 +15,13 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.example.weatherSearch.entity.model.CityModel;
+import com.example.weatherSearch.entity.model.CityPoolModel;
 import com.example.weatherSearch.entity.model.WeatherModel;
 import com.example.weatherSearch.service.WeatherService;
 
@@ -61,19 +61,19 @@ public class WeatherControllerTest {
      */
     @Test
     public void test_get_city_success() throws Exception {
+    	CityPoolModel cityPoolModel = new CityPoolModel();
+    	
     	CityModel cityModel = new CityModel();
-    	List<String> cities =new ArrayList<String>();
-    	cities.add("Sydney");
-    	cities.add("Melbourne");
-    	cities.add("Wollongong");
-    	cityModel.setCities(cities);
+    	cityModel.setId("Melbourne");
+    	cityModel.setName("墨尔本");
+    	cityPoolModel.getCityModel().add(cityModel);
 
-        when(this.weatherService.getCityList()).thenReturn(cityModel);
+        when(this.weatherService.getCityList()).thenReturn(cityPoolModel);
 
         final URI uri = URI.create("/api/cities");
         mockMvc.perform(MockMvcRequestBuilders.get(uri))
                 .andExpect(status().isOk())
-        		.andExpect(content().json("{\"code\":\"888\",\"msg\":\"success\",\"data\":{\"cities\":[\"Sydney\",\"Melbourne\",\"Wollongong\"]}}"));
+        		.andExpect(content().json("{\"code\":\"888\",\"msg\":\"success\",\"data\":{\"cityModel\":[{\"name\":\"墨尔本\",\"id\":\"Melbourne\"}]}}"));
         verify(weatherService, times(1)).getCityList();
         verifyNoMoreInteractions(weatherService);
     }

@@ -2,7 +2,7 @@ package com.example.weatherSearch.service;
 
 import org.springframework.stereotype.Service;
 
-import com.example.weatherSearch.entity.model.CityModel;
+import com.example.weatherSearch.entity.model.CityPoolModel;
 import com.example.weatherSearch.entity.model.WeatherModel;
 
 /**
@@ -24,6 +24,6 @@ public interface IWeatherService {
 	 *
 	 * @return the city list
 	 */
-	public CityModel getCityList() throws Exception;
+	public CityPoolModel getCityList() throws Exception;
 }
 

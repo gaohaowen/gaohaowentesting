@@ -1,11 +1,14 @@
 package com.example.weatherSearch.utility;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import org.springframework.core.io.ClassPathResource;
 
 import com.example.weatherSearch.enumData.ResultEnums;
 import com.example.weatherSearch.exception.WeatherException;
@@ -23,11 +26,14 @@ public class WeatherUtility {
 	 */
 	public static String getWeatherResource(String urlStr) {	
 		StringBuffer resultBuffer = new StringBuffer();
+		InputStream in = null;
+		InputStreamReader isr = null;
+		BufferedReader bufr = null;
 		try {
 	        URL url = new URL(urlStr);
-	        InputStream in =url.openStream();
-	        InputStreamReader isr = new InputStreamReader(in);
-	        BufferedReader bufr = new BufferedReader(isr);
+	        in =url.openStream();
+	        isr = new InputStreamReader(in);
+	        bufr = new BufferedReader(isr);
 	        String tempLine;
 	        while ((tempLine = bufr.readLine()) != null) {
 	        	resultBuffer.append(tempLine);
@@ -35,9 +41,28 @@ public class WeatherUtility {
 	        bufr.close();
 	        isr.close();
 	        in.close();
-	    } catch (Exception e) {    	
+	    } catch (IOException e) {    	
 	        e.printStackTrace();
 	        throw new WeatherException(ResultEnums.BUSSINESS_ERROR.getCode(), "call weather resource error");
+	    } finally {
+	    	try {
+	    		if(bufr != null)
+	    		{
+	    			bufr.close();
+	    		}
+	    		if(isr != null)
+	    		{
+	    			isr.close();
+	    		}
+		        if(in != null)
+		        {
+		        	in.close();
+		        }	        
+	    	}catch (IOException e) {    	
+		        e.printStackTrace();
+		        throw new WeatherException(ResultEnums.BUSSINESS_ERROR.getCode(), "call weather resource error");
+		    }
+	    	 
 	    }
 		return resultBuffer.toString();
 	}
@@ -45,18 +70,54 @@ public class WeatherUtility {
 	public static String getPrivateKey(String fileName) {
 		StringBuffer sb = new StringBuffer();
 		try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(fileName)),"UTF-8"));
-            String lineTxt = null;
-            while ((lineTxt = br.readLine()) != null) {
-            	sb.append(lineTxt);
-            }
-            br.close();
-        } catch (Exception e) {
+			Files.readAllLines(Paths.get(fileName)).forEach(sb::append);
+        } catch (IOException e) {
         	e.printStackTrace();
 	        throw new WeatherException(ResultEnums.BUSSINESS_ERROR.getCode(), "call weather resource error");
         }
 		
 		return sb.toString();
     }
+	
+	public static String getCityList() {
+		StringBuffer sb = new StringBuffer();
+		InputStream is = null;
+		InputStreamReader isr = null;
+		BufferedReader bufr = null;
+		try {
+			ClassPathResource classPathResource =  new ClassPathResource("resources/cityList.json");
+			is = classPathResource.getInputStream();
+			isr = new InputStreamReader(is);
+		    bufr = new BufferedReader(isr);
+            String lineTxt = null;
+            while ((lineTxt = bufr.readLine()) != null) {
+           	 sb.append(lineTxt);
+            }
+            bufr.close();
+        } catch (IOException e) {
+        	e.printStackTrace();
+	        throw new WeatherException(ResultEnums.BUSSINESS_ERROR.getCode(), "call city list error");
+        } finally {
+	    	try {
+	    		if(bufr != null)
+	    		{
+	    			bufr.close();
+	    		}
+	    		if(is != null)
+	    		{
+	    			is.close();
+	    		}
+		        if(isr != null)
+		        {
+		        	isr.close();
+		        }	        
+	    	}catch (final IOException e) {    	
+		        e.printStackTrace();
+		        throw new WeatherException(ResultEnums.BUSSINESS_ERROR.getCode(), "call city list error");
+		    }
+        }
+		return sb.toString();
+	}
+	
 
 }
