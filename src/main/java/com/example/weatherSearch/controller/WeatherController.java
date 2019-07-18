@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.weatherSearch.entity.model.CityModel;
+import com.example.weatherSearch.entity.model.CityPoolModel;
 import com.example.weatherSearch.entity.model.ResponseData;
 import com.example.weatherSearch.entity.model.WeatherModel;
 import com.example.weatherSearch.service.IWeatherService;
@@ -49,8 +49,8 @@ public class WeatherController {
 	@GetMapping("/cities")
 	@SuppressWarnings({"rawtypes" })
 	public ResponseData getCities() throws Exception{
-		final CityModel cityModel = this.weatherService.getCityList();
-		return ResponseDataUtil.buildSuccess(cityModel);
+		final CityPoolModel cityPoolModel = this.weatherService.getCityList();
+		return ResponseDataUtil.buildSuccess(cityPoolModel);
 	}
 	
 	/**

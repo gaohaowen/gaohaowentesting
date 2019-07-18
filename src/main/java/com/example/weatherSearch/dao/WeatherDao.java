@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.weatherSearch.entity.domain.WeatherDomain;
 import com.example.weatherSearch.entity.model.CityModel;
+import com.example.weatherSearch.entity.model.CityPoolModel;
 import com.example.weatherSearch.enumData.ResultEnums;
 import com.example.weatherSearch.exception.WeatherException;
 import com.example.weatherSearch.utility.WeatherUtility;
@@ -22,12 +23,7 @@ public class WeatherDao implements IWeatherDao{
 	
 	/** The city model. */
 	@Autowired
-	private CityModel cityModel;
-	
-	/** The url now. */
-	private String url_now = "https://api.seniverse.com/v3/weather/now.json?key=SpuAxDsc1_gNdlv27&location=LOCATION";
-	
-	private final static String WEATHER_SERVICE_SUFFIX = "/v3/weather/now.json?key=";
+	private CityPoolModel cityPoolModel;
 	
 	@Value("${weather.service}")
 	private String weatherService;
@@ -60,11 +56,11 @@ public class WeatherDao implements IWeatherDao{
 	/* (non-Javadoc)
 	 * @see com.example.weatherSearch.dao.IWeatherDao#getCityList()
 	 */
-	public CityModel getCityList() throws Exception{
-		if(cityModel == null)
+	public CityPoolModel getCityList() throws Exception{
+		if(cityPoolModel == null)
 		{
 			throw new WeatherException(ResultEnums.BUSSINESS_ERROR.getCode(), "call get CityList error");
 		}
-		return cityModel;
+		return cityPoolModel;
 	}
 }

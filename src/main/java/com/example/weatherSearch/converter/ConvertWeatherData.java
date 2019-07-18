@@ -1,5 +1,7 @@
 package com.example.weatherSearch.converter;
 
+import java.time.OffsetDateTime;
+
 import com.example.weatherSearch.entity.domain.Results;
 import com.example.weatherSearch.entity.domain.WeatherDomain;
 import com.example.weatherSearch.entity.model.WeatherModel;
@@ -35,7 +37,8 @@ public class ConvertWeatherData {
 				weatherModel.setTemperature(weatherResults.getNow().getTemperature());
 			}
 			
-			weatherModel.setUpdateTime(weatherResults.getLast_update());
+			OffsetDateTime lastUpdate = OffsetDateTime.parse(weatherResults.getLast_update());
+			weatherModel.setUpdateTime(lastUpdate.toLocalDateTime().toString());
 		}
 		return weatherModel;
 	}

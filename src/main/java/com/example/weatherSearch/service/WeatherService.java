@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.example.weatherSearch.converter.ConvertWeatherData;
 import com.example.weatherSearch.dao.IWeatherDao;
 import com.example.weatherSearch.entity.domain.WeatherDomain;
-import com.example.weatherSearch.entity.model.CityModel;
+import com.example.weatherSearch.entity.model.CityPoolModel;
 import com.example.weatherSearch.entity.model.WeatherModel;
 
 /**
@@ -31,7 +31,7 @@ public class WeatherService implements IWeatherService{
 	/* (non-Javadoc)
 	 * @see com.example.weatherSearch.service.IWeatherService#getCityList()
 	 */
-	public CityModel getCityList() throws Exception{
+	public CityPoolModel getCityList() throws Exception{
 		return this.weatherDao.getCityList();
 	}
 }
