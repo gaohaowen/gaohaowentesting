@@ -23,10 +23,6 @@ import com.google.gson.Gson;
 @PropertySource("classpath:resources/cityConfig.properties")
 @EnableAutoConfiguration
 public class ApplicationConfig {
-
-	/** The city pool. */
-	@Value("${weather.city.pool}")
-	private String cityPool;
 	
 	/**
 	 * Register city pool.
